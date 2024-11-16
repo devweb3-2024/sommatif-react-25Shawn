@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import Carreau from "./carreau.componants";
-import "./grilleCarreau.style.css";
+import React, { useEffect, useState } from 'react';
+import Carreau from './carreau.componants';
+import './grilleCarreau.style.css';
 import {
   Grid,
   Paper,
@@ -9,7 +9,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-} from "@mui/material";
+} from '@mui/material';
 
 const GrilleCarreau: React.FC = () => {
   const [carreaux, setCarreaux] = useState<JSX.Element[]>([]);
@@ -22,19 +22,19 @@ const GrilleCarreau: React.FC = () => {
     Array(imagesMelangees.length).fill(false)
   );
   const images = [
-    "chat1.png",
-    "chat2.png",
-    "chat3.png",
-    "chat4.png",
-    "chat5.png",
-    "chat6.png",
-    "chat7.png",
-    "chat8.png",
+    'chat1.png',
+    'chat2.png',
+    'chat3.png',
+    'chat4.png',
+    'chat5.png',
+    'chat6.png',
+    'chat7.png',
+    'chat8.png',
   ];
 
   const imagesDoublons = [...images, ...images];
   const [EtatPopup, setEtatPopup] = useState(false);
-  const [MessagePopup, setMessagePopup] = useState("");
+  const [MessagePopup, setMessagePopup] = useState('');
 
   useEffect(() => {
     const melange = [...imagesDoublons].sort(() => Math.random() - 0.5);
@@ -61,6 +61,7 @@ const GrilleCarreau: React.FC = () => {
   }, [visibilites, imagesMelangees]);
 
   const handleClick = (index: number) => {
+    // ER: En limitant la sélection à 2, on ne peut pas cliquer sur une seule autre carte après la première paire.
     if (selectionDuJoueur.length === 2 || nbPairesTrouvees === 8) {
       return;
     }
@@ -89,7 +90,7 @@ const GrilleCarreau: React.FC = () => {
           setVisibilites(resetVisibilites);
         }, 1000);
       }
-
+      // ER: À quoi sert ce setTimeout?
       setTimeout(() => setselectionDuJoueur([]), 1000);
     }
   };
@@ -99,7 +100,7 @@ const GrilleCarreau: React.FC = () => {
       setVisibilites(Array(imagesMelangees.length).fill(true));
       setTimeout(() => {
         setEtatPopup(true);
-        setMessagePopup("Vous avez perdu");
+        setMessagePopup('Vous avez perdu');
       }, 5000);
     }
   }, [compteur]);
@@ -107,7 +108,7 @@ const GrilleCarreau: React.FC = () => {
   useEffect(() => {
     if (nbPairesTrouvees === 8) {
       setAGagner(false);
-      setMessagePopup("Vous avez gagné!");
+      setMessagePopup('Vous avez gagné!');
       setEtatPopup(true);
     }
   }, [nbPairesTrouvees]);
@@ -134,16 +135,16 @@ const GrilleCarreau: React.FC = () => {
       <Grid
         container
         spacing={2}
-        sx={{ display: "flex", justifyContent: "center" }}
+        sx={{ display: 'flex', justifyContent: 'center' }}
       >
         {carreaux.map((carreau, index) => (
           <Grid
             item
             xs={3}
-            sx={{ width: "150px", height: "150px" }}
+            sx={{ width: '150px', height: '150px' }}
             key={index}
           >
-            <p style={{ margin: "0" }}>{imagesMelangees[index]}</p>
+            <p style={{ margin: '0' }}>{imagesMelangees[index]}</p>
             <Paper className="carreau">{carreau}</Paper>
           </Grid>
         ))}
